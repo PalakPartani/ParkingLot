@@ -12,11 +12,11 @@ public class ParkingLotTest {
     @Before
     public void setUp() throws Exception {
         parkingLot = new ParkingLot();
-        vehicle= new Object();
+        vehicle = new Object();
     }
 
 
-    //test for initial status of parking lot
+    //test for if driver can park
     @Test
     public void givenVehicle_WhenParked_ShouldReturnTrue() {
         ParkingLot parkingLotSystem = new ParkingLot();
@@ -24,10 +24,29 @@ public class ParkingLotTest {
         Assert.assertTrue(isParked);
     }
 
+    //check for if driver can un park
     @Test
     public void givenVehicle_WhenUnParked_ShouldReturnTrue() {
         parkingLot.CheckParkVehicle(vehicle);
-        boolean isUnParked = parkingLot.unParkVehicle(vehicle);
+        boolean isUnParked =false;
+        try{
+            isUnParked=parkingLot.unParkVehicle(vehicle);
+        }
+        catch (ParkingLotException e){
+
+        }
         Assert.assertTrue(isUnParked);
+    }
+
+    //check the object of vehicle if not same should return false
+    @Test
+    public void givenVehicleParked_WhenUnParkedAsAnotherVehicle_ShouldThrowException() {
+        parkingLot.CheckParkVehicle(vehicle);
+        try {
+            boolean isUnParked = parkingLot.unParkVehicle(new Object());
+            Assert.assertFalse(isUnParked);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("VEHICLE IS NOT AVAILABLE", e.getMessage());
+        }
     }
 }
