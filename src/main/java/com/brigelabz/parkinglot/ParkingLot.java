@@ -2,10 +2,25 @@ package com.brigelabz.parkinglot;
 
 public class ParkingLot {
     private Object vehicle;
+    private final int capacity;
+    private int currentCapacity = 0;
 
-    public boolean CheckParkVehicle(Object vehicle) {
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void CheckParkVehicle(Object vehicle) throws ParkingLotException {
+        if (this.capacity == currentCapacity)
+            throw new ParkingLotException("PARKING CAPACITY IS FULL", ParkingLotException.ExceptionType.OCCUPIED);
         this.vehicle = vehicle;
-        return true;
+        currentCapacity++;
+
+    }
+
+    public boolean isVehiclePark() throws ParkingLotException {
+        if (this.vehicle != null)
+            return true;
+        throw new ParkingLotException("VEHICLE NOT FOUND", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);
     }
 
     public boolean unParkVehicle(Object vehicle) throws ParkingLotException {
@@ -13,6 +28,6 @@ public class ParkingLot {
             this.vehicle = null;
             return true;
         }
-        throw new ParkingLotException("VEHICLE IS NOT AVAILABLE", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);    }
+        throw new ParkingLotException("VEHICLE IS DIFFERENT", ParkingLotException.ExceptionType.VEHICLE_NOT_FOUND);    }
 }
 
