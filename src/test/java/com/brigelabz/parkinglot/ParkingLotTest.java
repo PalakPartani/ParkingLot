@@ -7,10 +7,9 @@ public class ParkingLotTest {
 
     //test for initial status of parking lot
     @Test
-    public void givenParkLot_WhenEmpty_ShouldReturn100() {
-
-        ParkingLot parkingLot = new ParkingLot();
-        int parkingLotSize = parkingLot.getParkingLotSize();
-        Assert.assertEquals(100, parkingLotSize);
+    public void givenVehicle_WhenParked_ShouldReturnTrue() {
+        ParkingLot parkingLotSystem = new ParkingLot();
+        boolean isParked = parkingLotSystem.CheckParkVehicle();
+        Assert.assertTrue(isParked);
     }
 }
